@@ -1,7 +1,6 @@
 package br.com.restaurante.model;
 
 public class Pedido {
-
     private final String nomeCliente;
     private final int numeroPedido;
     private final int mesa;
