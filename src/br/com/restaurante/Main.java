@@ -1,4 +1,7 @@
 package br.com.restaurante;
+import br.com.restaurante.adapter.EnvioPedido;
+import br.com.restaurante.adapter.SistemaCozinhaAdapter;
+import br.com.restaurante.adapter.SistemaCozinhaExterno;
 import br.com.restaurante.builder.PedidoBuilder;
 import br.com.restaurante.factory.PedidoFactory;
 import br.com.restaurante.model.Pedido;
@@ -25,13 +28,19 @@ public class Main {
         TempoPreparoStrategy preparoNormal = new PreparoNormalStrategy();
         int tempoNormal = preparoNormal.calcularTempo(pedidoFactory);
 
-        System.out.println("----- Strategy -----");
+        System.out.println("----- Strategy Normal -----");
         System.out.println("Tempo estimado: " + tempoNormal + " minutos");
 
         TempoPreparoStrategy preparoRapido = new PreparoRapidoStrategy();
         int tempoRapido = preparoRapido.calcularTempo(pedidoFactory);
 
-        System.out.println("----- Strategy -----");
+        System.out.println("----- Strategy Rápido -----");
         System.out.println("Tempo estimado: " + tempoRapido + " minutos");
+
+        SistemaCozinhaExterno sistemaCozinhaExterno = new SistemaCozinhaExterno();
+        EnvioPedido envioPedido = new SistemaCozinhaAdapter(sistemaCozinhaExterno);
+
+        System.out.println("----- Adapter -----");
+        envioPedido.enviar(pedidoFactory);
     }
 }
