@@ -1,5 +1,7 @@
 package br.com.restaurante;
-
+import br.com.restaurante.observer.CozinhaObserver;
+import br.com.restaurante.observer.GarcomObserver;
+import br.com.restaurante.observer.PedidoNotificador;
 import br.com.restaurante.adapter.EnvioPedido;
 import br.com.restaurante.adapter.SistemaCozinhaAdapter;
 import br.com.restaurante.adapter.SistemaCozinhaExterno;
@@ -56,5 +58,13 @@ public class Main {
 
         System.out.println("----- Decorator -----");
         processadorPedido.processar(pedidoFactory);
+
+        PedidoNotificador pedidoNotificador = new PedidoNotificador();
+
+        pedidoNotificador.adicionarObserver(new CozinhaObserver());
+        pedidoNotificador.adicionarObserver(new GarcomObserver());
+
+        System.out.println("----- Observer -----");
+        pedidoNotificador.novoPedido(pedidoFactory);
     }
 }
