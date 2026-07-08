@@ -1,8 +1,13 @@
 package br.com.restaurante;
+
 import br.com.restaurante.adapter.EnvioPedido;
 import br.com.restaurante.adapter.SistemaCozinhaAdapter;
 import br.com.restaurante.adapter.SistemaCozinhaExterno;
 import br.com.restaurante.builder.PedidoBuilder;
+import br.com.restaurante.decorator.LogPedidoDecorator;
+import br.com.restaurante.decorator.ProcessadorPedido;
+import br.com.restaurante.decorator.ProcessadorPedidoSimples;
+import br.com.restaurante.decorator.ValidacaoPedidoDecorator;
 import br.com.restaurante.factory.PedidoFactory;
 import br.com.restaurante.model.Pedido;
 import br.com.restaurante.strategy.PreparoNormalStrategy;
@@ -42,5 +47,14 @@ public class Main {
 
         System.out.println("----- Adapter -----");
         envioPedido.enviar(pedidoFactory);
+
+        ProcessadorPedido processadorPedido = new LogPedidoDecorator(
+                new ValidacaoPedidoDecorator(
+                        new ProcessadorPedidoSimples()
+                )
+        );
+
+        System.out.println("----- Decorator -----");
+        processadorPedido.processar(pedidoFactory);
     }
 }
