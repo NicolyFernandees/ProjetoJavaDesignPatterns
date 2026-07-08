@@ -1,5 +1,4 @@
 package br.com.restaurante.builder;
-
 import br.com.restaurante.model.Pedido;
 
 public class PedidoBuilder {
